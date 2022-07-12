@@ -4,9 +4,9 @@
 	"description": "Lista de afazeres",
 	"main": "script.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "jest",
 		"lint": "eslint . --ext .ts",
-        "build": "tsc --build"
+		"build": "tsc --build"
 	},
 	"repository": {
 		"type": "git",
@@ -17,5 +17,12 @@
 	"bugs": {
 		"url": "https://github.com/Davisralves/to_do_list/issues"
 	},
-	"homepage": "https://github.com/Davisralves/to_do_list#readme"
+	"homepage": "https://github.com/Davisralves/to_do_list#readme",
+	"dependencies": {
+		"@testing-library/dom": "^8.16.0"
+	},
+	"devDependencies": {
+		"eslint-plugin-jest-dom": "^4.0.2",
+		"jest": "^28.1.2"
+	}
 }
