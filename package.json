@@ -1,0 +1,20 @@
+{
+	"name": "to_do_list",
+	"version": "1.0.0",
+	"description": "Lista de afazeres",
+	"main": "script.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "eslint . --ext .ts"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Davisralves/to_do_list.git"
+	},
+	"author": "Davi Alves",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Davisralves/to_do_list/issues"
+	},
+	"homepage": "https://github.com/Davisralves/to_do_list#readme"
+}
