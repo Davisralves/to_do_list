@@ -4,10 +4,10 @@ const html = fs.readFileSync(
 	path.resolve("to_do_list", "../index.html"),
 	"utf8"
 );
-const { getByText } = require("@testing-library/dom");
+const { getByText, getByRole } = require("@testing-library/dom");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-require("@testing-library/jest-dom")
+require("@testing-library/jest-dom");
 let dom;
 let container;
 
@@ -20,8 +20,21 @@ describe("index.html", () => {
 		dom = new JSDOM(html, { runScripts: "dangerously" });
 		container = dom.window.document.body;
 	});
-	it("renders a heading element", () => {
-		expect(container.querySelector("h3")).not.toBeNull();
-		expect(getByText(container, "Lista de Tarefas")).toBeInTheDocument();
+	describe("renders headings elements", () => {
+		it("renders title", () => {
+			expect(container.querySelector("h1")).not.toBeNull();
+			expect(
+				getByRole(container, "heading", { name: "Lista de Tarefas", level: 1 })
+			).toBeInTheDocument();
+		});
+		it("renders subtitle", () => {
+			expect(container.querySelector("h3")).not.toBeNull();
+			expect(
+				getByRole(container, "heading", {
+					name: "Clique em um item para marcá-lo como completo",
+					level: 3,
+				})
+			).toBeInTheDocument();
+		});
 	});
 });
