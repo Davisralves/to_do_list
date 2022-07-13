@@ -37,4 +37,24 @@ describe("index.html", () => {
 			).toBeInTheDocument();
 		});
 	});
+	describe("render button elements", () => {
+		it("render 5 buttons", () => {
+			expect(container.querySelectorAll("button")).toHaveLength(5);
+		});
+		it('render "Add task" button', () => {
+			expect(getByRole(container, "button", { name: "Criar tarefa" }));
+		});
+		it('render "Remove selected" button', () => {
+			expect(getByRole(container, "button", { name: "X" }));
+		});
+		it('render "Remove ended tasks" button', () => {
+			expect(getByRole(container, "button", { name: "Remover finalizados" }));
+		});
+		it('render "Delete all" button', () => {
+			expect(getByRole(container, "button", { name: "Apagar tudo" }));
+		});
+		it('render "Save" button', () => {
+			expect(getByRole(container, "button", { name: "Salvar" }));
+		});
+	});
 });
