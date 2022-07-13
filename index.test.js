@@ -59,7 +59,7 @@ describe("index.html", () => {
 	});
 	describe("test input and label elements", () => {
 		it("render Describe Task input and label elements", () => {
-			expect(getByLabelText(container, "Describe Task", { selector: "input" })).toBeInTheDocument();
+			expect(getByLabelText(container, "Describe Task:", { selector: "input" })).toBeInTheDocument();
 		});
 	});
 });
