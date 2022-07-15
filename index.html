@@ -10,18 +10,17 @@
 	<body>
 		<header>
 			<h1>Lista de Tarefas</h1>
-			<h3 id="funcionamento">
-				Clique em um item para marcá-lo como completo
-			</h3>
+			<h3 id="funcionamento">Clique em um item para marcá-lo como completo</h3>
 		</header>
-        <label for="text-input">Describe Task:</label>
-		<input id="text-input" />
-		<ol id="lista-tarefas"></ol>
-		<button type="button" id="remover-selecionado">X</button>
-		<button type="button" id="criar-tarefa">Criar tarefa</button>
-		<button id="remover-finalizados">Remover finalizados</button>
-		<button id="apaga-tudo">Apagar tudo</button>
-		<button id="salvar-tarefas">Salvar</button>
+		<form>
+			<label for="text-input">Describe Task:</label>
+			<input id="text-input" />
+			<button type="button" id="remover-selecionado">X</button>
+			<button type="submit" id="add-task">Criar tarefa</button>
+			<button id="remover-finalizados">Remover finalizados</button>
+			<button id="apaga-tudo">Apagar tudo</button>
+			<button id="salvar-tarefas">Salvar</button>
+		</form>
 		<script type="module" src="/dist/script.js"></script>
 	</body>
 </html>
