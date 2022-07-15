@@ -1,4 +1,4 @@
-class ToDoList {
+export class ToDoList {
 	public tasks: Task[];
 	public list: HTMLDivElement;
 
@@ -18,7 +18,8 @@ class ToDoList {
 	renderList(): HTMLDivElement {
 		this.tasks.forEach((task, index) => {
 			task.id = index;
-			this.list.firstElementChild.appendChild(task.element);
+            let unorderedList = this.list.firstElementChild as HTMLUListElement
+			unorderedList.appendChild(task.element);
 		});
 		return this.list;
 	}

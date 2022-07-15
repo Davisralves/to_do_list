@@ -1,4 +1,4 @@
-class Task {
+export class Task {
 	public name: string;
 	public id: number;
 	public element: HTMLElement;
