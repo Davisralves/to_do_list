@@ -1,14 +1,36 @@
-var Task = /** @class */ (function () {
-    function Task(name) {
+var Button = /** @class */ (function () {
+    function Button(name, method) {
         this.name = name;
+        this.method = method;
+        var button = document.createElement("button");
+        button.innerText = name;
+        button.type = "button";
+        button.onclick = function (e) {
+            method(e);
+        };
+        this.element = button;
+    }
+    return Button;
+}());
+var Task = /** @class */ (function () {
+    function Task(name, toDoList) {
+        var _this = this;
+        this.name = name;
+        this.editTask = function (newTask) {
+            _this.name = newTask;
+        };
+        this.removeSelf = function (e) {
+            var actualList = e.target.parentNode.parentNode;
+            _this.toDoList.tasks.forEach(function (task) { return actualList.removeChild(task.element); });
+            _this.toDoList.removeTask(_this);
+        };
+        this.toDoList = toDoList;
         var li = document.createElement("li");
         li.innerText = name;
-        li.id = "0";
+        var deleteButton = new Button("Delete", this.removeSelf).element;
+        li.appendChild(deleteButton);
         this.element = li;
     }
-    Task.prototype.editTask = function (newTask) {
-        this.name = newTask;
-    };
     return Task;
 }());
 var ToDoList = /** @class */ (function () {
@@ -25,15 +47,19 @@ var ToDoList = /** @class */ (function () {
     };
     ToDoList.prototype.renderList = function () {
         var _this = this;
-        this.tasks.forEach(function (task, index) {
-            task.id = index;
-            _this.list.firstElementChild.appendChild(task.element);
+        this.tasks.forEach(function (task) {
+            console.log(task.name);
+            var unorderedList = _this.list.firstElementChild;
+            unorderedList.appendChild(task.element);
         });
         return this.list;
     };
     ToDoList.prototype.removeTask = function (task) {
-        var index = this.tasks.indexOf(task, 1);
+        console.log(task);
+        var index = this.tasks.indexOf(task);
         this.tasks.splice(index, 1);
+        this.renderList();
+        return index;
     };
     return ToDoList;
 }());
@@ -42,9 +68,10 @@ var lastButton = document.getElementById("salvar-tarefas");
 var addButton = document.getElementById("add-task");
 var addItem = function (event, list) {
     event.preventDefault();
-    var task = new Task(input.value);
+    var task = new Task(input.value, list);
+    console.log(task);
+    console.log(task.toDoList);
     list.addTask(task);
-    console.log(list);
     list.renderList();
 };
 var list = new ToDoList();

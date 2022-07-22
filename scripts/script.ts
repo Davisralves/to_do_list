@@ -4,9 +4,10 @@ const addButton = document.getElementById("add-task");
 
 const addItem = (event: Event, list: ToDoList) => {
 	event.preventDefault();
-	const task = new Task(input.value);
+	const task = new Task(input.value, list);
+	console.log(task);
+	console.log(task.toDoList);
 	list.addTask(task);
-	console.log(list);
 	list.renderList();
 };
 
