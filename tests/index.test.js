@@ -8,6 +8,7 @@ const {
 	getByRole,
 	getByLabelText,
 	fireEvent,
+	MouseEvent,
 } = require("@testing-library/dom");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
@@ -75,4 +76,13 @@ describe("index.html", () => {
 			).toBeInTheDocument();
 		});
 	});
+	// describe("test add button work as aspected", () => {
+	// 	it("has one", () => {
+	// 		const addButton = getByRole(container, "button", {
+	// 			name: "Criar tarefa",
+	// 		});
+	// 		fireEvent.click(addButton);
+	// 		expect(container.MouseEvent)
+	// 	});
+	// });
 });
