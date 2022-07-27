@@ -1,10 +1,12 @@
 var Button = /** @class */ (function () {
-    function Button(name, method) {
+    function Button(name, method, type) {
         this.name = name;
         this.method = method;
+        this.type = type;
         var button = document.createElement("button");
         button.innerText = name;
-        button.type = "button";
+        button.type = type || "button";
+        button.id = name;
         button.onclick = function (e) {
             method(e);
         };
@@ -16,20 +18,41 @@ var Task = /** @class */ (function () {
     function Task(name, toDoList) {
         var _this = this;
         this.name = name;
-        this.editTask = function (newTask) {
-            _this.name = newTask;
+        this.appendButtons = function () {
+            _this.element.appendChild(new Button("x", _this.removeSelf).element);
+            _this.element.appendChild(new Button("Edit", _this.editTask).element);
+        };
+        this.confirmTask = function (event) {
+            var _a;
+            event.preventDefault();
+            var input = (_a = _this.element.firstChild) === null || _a === void 0 ? void 0 : _a.firstChild;
+            var newText = input.value;
+            _this.element.innerText = newText;
+            _this.name = newText;
+            _this.appendButtons();
+        };
+        this.editTask = function () {
+            var confirmButton = new Button("Confirm", _this.confirmTask, "submit").element;
+            var form = document.createElement("form");
+            var input = document.createElement("input");
+            input.value = _this.name;
+            _this.element.innerText = "";
+            form.appendChild(input);
+            form.appendChild(confirmButton);
+            _this.element.appendChild(form);
         };
         this.removeSelf = function (e) {
-            var actualList = e.target.parentNode.parentNode;
-            _this.toDoList.tasks.forEach(function (task) { return actualList.removeChild(task.element); });
+            var documentList = e.target.parentNode.parentNode;
+            _this.toDoList.tasks.forEach(function (task) {
+                return documentList.removeChild(task.element);
+            });
             _this.toDoList.removeTask(_this);
         };
         this.toDoList = toDoList;
         var li = document.createElement("li");
         li.innerText = name;
-        var deleteButton = new Button("Delete", this.removeSelf).element;
-        li.appendChild(deleteButton);
         this.element = li;
+        this.appendButtons();
     }
     return Task;
 }());
@@ -55,11 +78,9 @@ var ToDoList = /** @class */ (function () {
         return this.list;
     };
     ToDoList.prototype.removeTask = function (task) {
-        console.log(task);
         var index = this.tasks.indexOf(task);
         this.tasks.splice(index, 1);
         this.renderList();
-        return index;
     };
     return ToDoList;
 }());

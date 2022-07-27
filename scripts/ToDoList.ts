@@ -26,7 +26,7 @@ class ToDoList {
 
 	removeTask(task: Task) {
 		const index = this.tasks.indexOf(task);
-		this.tasks.splice(index, 1);
+		this.tasks.splice(index, 1);    
 		this.renderList();
 	}
 }
