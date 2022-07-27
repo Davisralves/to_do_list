@@ -1,6 +1,10 @@
 class Button {
 	public element: HTMLElement;
-	constructor(public name: string, public method: Function, public type?: string) {
+	constructor(
+		public name: string,
+		public method: Function,
+		public type?: string
+	) {
 		const button = document.createElement("button");
 		button.innerText = name;
 		button.type = type || "button";
@@ -29,7 +33,7 @@ class Task {
 	};
 
 	confirmTask = (event) => {
-	    event.preventDefault();
+		event.preventDefault();
 		const input = this.element.firstChild?.firstChild as HTMLInputElement;
 		const newText = input.value;
 		this.element.innerText = newText;
@@ -38,14 +42,15 @@ class Task {
 	};
 
 	editTask = () => {
-		const confirmButton = new Button("Confirm", this.confirmTask, "submit").element;
-        const form = document.createElement("form")
+		const confirmButton = new Button("Confirm", this.confirmTask, "submit")
+			.element;
+		const form = document.createElement("form");
 		const input = document.createElement("input");
 		input.value = this.name;
 		this.element.innerText = "";
-        form.appendChild(input)
-        form.appendChild(confirmButton)
-        this.element.appendChild(form)
+		form.appendChild(input);
+		form.appendChild(confirmButton);
+		this.element.appendChild(form);
 	};
 
 	removeSelf = (e) => {

@@ -30,9 +30,11 @@ var Task = /** @class */ (function () {
             _this.element.innerText = newText;
             _this.name = newText;
             _this.appendButtons();
+            console.log(_this);
         };
         this.editTask = function () {
-            var confirmButton = new Button("Confirm", _this.confirmTask, "submit").element;
+            var confirmButton = new Button("Confirm", _this.confirmTask, "submit")
+                .element;
             var form = document.createElement("form");
             var input = document.createElement("input");
             input.value = _this.name;
