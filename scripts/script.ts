@@ -1,12 +1,11 @@
 const input = document.getElementsByTagName("input")[0];
 const lastButton = document.getElementById("salvar-tarefas");
 const addButton = document.getElementById("add-task");
+const deleteButton = document.getElementById("apaga-tudo");
 
 const addItem = (event: Event, list: ToDoList) => {
 	event.preventDefault();
 	const task = new Task(input.value, list);
-	console.log(task);
-	console.log(task.toDoList);
 	list.addTask(task);
 	list.renderList();
 };
@@ -14,3 +13,4 @@ const addItem = (event: Event, list: ToDoList) => {
 const list = new ToDoList();
 lastButton.insertAdjacentElement("afterend", list.renderList());
 addButton.addEventListener("click", (e: Event) => addItem(e, list));
+deleteButton.addEventListener("click", list.reset);

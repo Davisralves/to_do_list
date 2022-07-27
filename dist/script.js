@@ -30,7 +30,6 @@ var Task = /** @class */ (function () {
             _this.element.innerText = newText;
             _this.name = newText;
             _this.appendButtons();
-            console.log(_this);
         };
         this.editTask = function () {
             var confirmButton = new Button("Confirm", _this.confirmTask, "submit")
@@ -60,6 +59,14 @@ var Task = /** @class */ (function () {
 }());
 var ToDoList = /** @class */ (function () {
     function ToDoList() {
+        var _this = this;
+        this.reset = function () {
+            _this.tasks.forEach(function (task) {
+                var ol = _this.list.firstElementChild;
+                ol.removeChild(task.element);
+            });
+            _this.tasks = [];
+        };
         this.tasks = [];
         var div = document.createElement("div");
         var ul = document.createElement("ul");
@@ -73,7 +80,6 @@ var ToDoList = /** @class */ (function () {
     ToDoList.prototype.renderList = function () {
         var _this = this;
         this.tasks.forEach(function (task) {
-            console.log(task.name);
             var unorderedList = _this.list.firstElementChild;
             unorderedList.appendChild(task.element);
         });
@@ -89,14 +95,14 @@ var ToDoList = /** @class */ (function () {
 var input = document.getElementsByTagName("input")[0];
 var lastButton = document.getElementById("salvar-tarefas");
 var addButton = document.getElementById("add-task");
+var deleteButton = document.getElementById("apaga-tudo");
 var addItem = function (event, list) {
     event.preventDefault();
     var task = new Task(input.value, list);
-    console.log(task);
-    console.log(task.toDoList);
     list.addTask(task);
     list.renderList();
 };
 var list = new ToDoList();
 lastButton.insertAdjacentElement("afterend", list.renderList());
 addButton.addEventListener("click", function (e) { return addItem(e, list); });
+deleteButton.addEventListener("click", list.reset);
