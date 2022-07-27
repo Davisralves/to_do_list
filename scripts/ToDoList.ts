@@ -1,4 +1,4 @@
-class ToDoList {
+export class ToDoList {
 	public tasks: Task[];
 	public list: HTMLDivElement;
 

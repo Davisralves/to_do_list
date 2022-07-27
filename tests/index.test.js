@@ -43,15 +43,12 @@ describe("index.html", () => {
 	});
 	describe("render button elements", () => {
 		it("render 5 buttons", () => {
-			expect(container.querySelectorAll("button")).toHaveLength(5);
+			expect(container.querySelectorAll("button")).toHaveLength(4);
 		});
 		it('render "Add task" button', () => {
 			expect(
 				getByRole(container, "button", { name: "Criar tarefa" })
 			).toBeInTheDocument();
-		});
-		it('render "Remove selected" button', () => {
-			expect(getByRole(container, "button", { name: "X" })).toBeInTheDocument();
 		});
 		it('render "Remove ended tasks" button', () => {
 			expect(
