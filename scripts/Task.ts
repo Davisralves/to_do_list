@@ -16,7 +16,7 @@ class Button {
 	}
 }
 
-export default class Task {
+class Task {
 	public element: HTMLElement;
 	public toDoList: ToDoList;
 	constructor(public name: string, toDoList: ToDoList) {
@@ -30,7 +30,7 @@ export default class Task {
 	appendButtons() {
 		this.element.appendChild(new Button("x", this.removeSelf).element);
 		this.element.appendChild(new Button("Edit", this.editTask).element);
-	};
+	}
 
 	confirmTask = (event) => {
 		event.preventDefault();
@@ -41,7 +41,7 @@ export default class Task {
 		this.appendButtons();
 	};
 
-	editTask() {
+	editTask = () => {
 		const confirmButton = new Button("Confirm", this.confirmTask, "submit")
 			.element;
 		const form = document.createElement("form");

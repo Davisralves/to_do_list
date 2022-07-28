@@ -1,4 +1,4 @@
-export class ToDoList {
+class ToDoList {
 	public tasks: Task[];
 	public list: HTMLDivElement;
 
@@ -36,4 +36,21 @@ export class ToDoList {
 		this.tasks.splice(index, 1);
 		this.renderList();
 	}
+
+	saveLocalStorage = () => {
+		const taskNames = this.tasks.map((task) => task.name);
+		const taskNamesString = JSON.stringify(taskNames);
+		localStorage.setItem("tasks", taskNamesString);
+	};
+
+	getLocalStorage = () => {
+		const tasksNamesString = localStorage.getItem("tasks");
+		if (tasksNamesString) {
+			const tasksNames = JSON.parse(tasksNamesString);
+			this.tasks = tasksNames.map(
+				(taskName: string) => new Task(taskName, this)
+			);
+		}
+		return this.renderList();
+	};
 }

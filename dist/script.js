@@ -18,10 +18,6 @@ var Task = /** @class */ (function () {
     function Task(name, toDoList) {
         var _this = this;
         this.name = name;
-        this.appendButtons = function () {
-            _this.element.appendChild(new Button("x", _this.removeSelf).element);
-            _this.element.appendChild(new Button("Edit", _this.editTask).element);
-        };
         this.confirmTask = function (event) {
             var _a;
             event.preventDefault();
@@ -55,6 +51,10 @@ var Task = /** @class */ (function () {
         this.element = li;
         this.appendButtons();
     }
+    Task.prototype.appendButtons = function () {
+        this.element.appendChild(new Button("x", this.removeSelf).element);
+        this.element.appendChild(new Button("Edit", this.editTask).element);
+    };
     return Task;
 }());
 var ToDoList = /** @class */ (function () {
@@ -66,6 +66,19 @@ var ToDoList = /** @class */ (function () {
                 ol.removeChild(task.element);
             });
             _this.tasks = [];
+        };
+        this.saveLocalStorage = function () {
+            var taskNames = _this.tasks.map(function (task) { return task.name; });
+            var taskNamesString = JSON.stringify(taskNames);
+            localStorage.setItem("tasks", taskNamesString);
+        };
+        this.getLocalStorage = function () {
+            var tasksNamesString = localStorage.getItem("tasks");
+            if (tasksNamesString) {
+                var tasksNames = JSON.parse(tasksNamesString);
+                _this.tasks = tasksNames.map(function (taskName) { return new Task(taskName, _this); });
+            }
+            return _this.renderList();
         };
         this.tasks = [];
         var div = document.createElement("div");
@@ -96,6 +109,7 @@ var input = document.getElementsByTagName("input")[0];
 var lastButton = document.getElementById("salvar-tarefas");
 var addButton = document.getElementById("add-task");
 var deleteButton = document.getElementById("apaga-tudo");
+var saveButton = document.getElementById("salvar-tarefas");
 var addItem = function (event, list) {
     event.preventDefault();
     var task = new Task(input.value, list);
@@ -103,6 +117,7 @@ var addItem = function (event, list) {
     list.renderList();
 };
 var list = new ToDoList();
-lastButton.insertAdjacentElement("afterend", list.renderList());
+lastButton.insertAdjacentElement("afterend", list.getLocalStorage());
 addButton.addEventListener("click", function (e) { return addItem(e, list); });
 deleteButton.addEventListener("click", list.reset);
+saveButton.addEventListener("click", list.saveLocalStorage);
