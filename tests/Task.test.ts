@@ -1,5 +1,5 @@
 import { JSDOM } from "jsdom";
-import { Task } from "../scripts/Task";
+import Task from "../scripts/Task";
 import { ToDoList } from "../scripts/ToDoList";
 const dom = new JSDOM();
 global.document = dom.window.document;
@@ -22,5 +22,11 @@ describe("Test Task Class", () => {
 		expect(taskTest).toHaveProperty("editTask");
 		expect(taskTest).toHaveProperty("appendButtons");
 		expect(taskTest).toHaveProperty("removeSelf");
+	});
+	test("method appendButtons are called when a Task is created", () => {
+		const appendButtons = jest.spyOn(Task.prototype, "appendButtons");
+		const taskTest = new Task("task1", new ToDoList());
+		expect(appendButtons).toHaveBeenCalledTimes(1);
+		jest.restoreAllMocks();
 	});
 });

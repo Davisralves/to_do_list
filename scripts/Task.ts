@@ -16,7 +16,7 @@ class Button {
 	}
 }
 
-export class Task {
+export default class Task {
 	public element: HTMLElement;
 	public toDoList: ToDoList;
 	constructor(public name: string, toDoList: ToDoList) {
@@ -27,7 +27,7 @@ export class Task {
 		this.appendButtons();
 	}
 
-	appendButtons = () => {
+	appendButtons() {
 		this.element.appendChild(new Button("x", this.removeSelf).element);
 		this.element.appendChild(new Button("Edit", this.editTask).element);
 	};
@@ -41,7 +41,7 @@ export class Task {
 		this.appendButtons();
 	};
 
-	editTask = () => {
+	editTask() {
 		const confirmButton = new Button("Confirm", this.confirmTask, "submit")
 			.element;
 		const form = document.createElement("form");
