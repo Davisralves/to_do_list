@@ -37,6 +37,18 @@ class ToDoList {
 		this.renderList();
 	}
 
+	removeFinished = () => {
+		// this.task.length muda sempre que um elemento é removido
+		const length = this.tasks.length;
+		for (let index = 0; index < length; index += 1) {
+			const actualTask = this.tasks[index - (length - this.tasks.length)];
+			if (actualTask.element.className === "finished") {
+				this.removeTask(actualTask);
+				this.list.firstChild?.removeChild(actualTask.element);
+			}
+		}
+	};
+
 	saveLocalStorage = () => {
 		const taskNames = this.tasks.map((task) => task.name);
 		const taskNamesString = JSON.stringify(taskNames);

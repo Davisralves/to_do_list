@@ -18,6 +18,9 @@ var Task = /** @class */ (function () {
     function Task(name, toDoList) {
         var _this = this;
         this.name = name;
+        this.setFinished = function () {
+            _this.element.className = "finished";
+        };
         this.confirmTask = function (event) {
             var _a;
             event.preventDefault();
@@ -39,16 +42,15 @@ var Task = /** @class */ (function () {
             _this.element.appendChild(form);
         };
         this.removeSelf = function (e) {
-            var documentList = e.target.parentNode.parentNode;
-            _this.toDoList.tasks.forEach(function (task) {
-                return documentList.removeChild(task.element);
-            });
+            var documentList = _this.toDoList.list.firstChild;
+            documentList.removeChild(_this.element);
             _this.toDoList.removeTask(_this);
         };
         this.toDoList = toDoList;
         var li = document.createElement("li");
         li.innerText = name;
         this.element = li;
+        this.element.onclick = this.setFinished;
         this.appendButtons();
     }
     Task.prototype.appendButtons = function () {
@@ -66,6 +68,18 @@ var ToDoList = /** @class */ (function () {
                 ol.removeChild(task.element);
             });
             _this.tasks = [];
+        };
+        this.removeFinished = function () {
+            var _a;
+            // this.task.length muda sempre que um elemento é removido
+            var length = _this.tasks.length;
+            for (var index = 0; index < length; index += 1) {
+                var actualTask = _this.tasks[index - (length - _this.tasks.length)];
+                if (actualTask.element.className === "finished") {
+                    _this.removeTask(actualTask);
+                    (_a = _this.list.firstChild) === null || _a === void 0 ? void 0 : _a.removeChild(actualTask.element);
+                }
+            }
         };
         this.saveLocalStorage = function () {
             var taskNames = _this.tasks.map(function (task) { return task.name; });
@@ -110,6 +124,7 @@ var lastButton = document.getElementById("salvar-tarefas");
 var addButton = document.getElementById("add-task");
 var deleteButton = document.getElementById("apaga-tudo");
 var saveButton = document.getElementById("salvar-tarefas");
+var removeFinished = document.getElementById("remover-finalizados");
 var addItem = function (event, list) {
     event.preventDefault();
     var task = new Task(input.value, list);
@@ -121,3 +136,4 @@ lastButton.insertAdjacentElement("afterend", list.getLocalStorage());
 addButton.addEventListener("click", function (e) { return addItem(e, list); });
 deleteButton.addEventListener("click", list.reset);
 saveButton.addEventListener("click", list.saveLocalStorage);
+removeFinished.addEventListener("click", list.removeFinished);

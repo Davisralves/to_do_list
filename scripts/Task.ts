@@ -24,8 +24,13 @@ class Task {
 		const li = document.createElement("li");
 		li.innerText = name;
 		this.element = li;
+		this.element.onclick = this.setFinished;
 		this.appendButtons();
 	}
+
+	setFinished = () => {
+		this.element.className = "finished";
+	};
 
 	appendButtons() {
 		this.element.appendChild(new Button("x", this.removeSelf).element);
@@ -54,10 +59,7 @@ class Task {
 	};
 
 	removeSelf = (e) => {
-		const documentList = e.target.parentNode.parentNode;
-		this.toDoList.tasks.forEach((task) =>
-			documentList.removeChild(task.element)
-		);
+		this.toDoList.list.firstChild?.removeChild(this.element);
 		this.toDoList.removeTask(this);
 	};
 }
