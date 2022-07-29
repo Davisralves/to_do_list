@@ -38,7 +38,7 @@ class ToDoList {
 	}
 
 	removeFinished = () => {
-		// this.task.length muda sempre que um elemento é removido
+		// this.tasks.length muda sempre que um elemento é removido
 		const length = this.tasks.length;
 		for (let index = 0; index < length; index += 1) {
 			const actualTask = this.tasks[index - (length - this.tasks.length)];
