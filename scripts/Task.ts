@@ -29,12 +29,16 @@ class Task {
 	}
 
 	setFinished = () => {
-		this.element.className = "finished";
+		if (this.element.className === "finished") {
+			return (this.element.className = "");
+		} else this.element.className = "finished";
 	};
 
 	appendButtons() {
-		this.element.appendChild(new Button("x", this.removeSelf).element);
-		this.element.appendChild(new Button("Edit", this.editTask).element);
+		const buttons = document.createElement("div");
+		buttons.appendChild(new Button("x", this.removeSelf).element);
+		buttons.appendChild(new Button("Edit", this.editTask).element);
+		this.element.appendChild(buttons);
 	}
 
 	confirmTask = (event) => {
@@ -49,6 +53,7 @@ class Task {
 	editTask = () => {
 		const confirmButton = new Button("Confirm", this.confirmTask, "submit")
 			.element;
+		confirmButton.style.display = "inline";
 		const form = document.createElement("form");
 		const input = document.createElement("input");
 		input.value = this.name;

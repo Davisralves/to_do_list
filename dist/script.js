@@ -19,7 +19,11 @@ var Task = /** @class */ (function () {
         var _this = this;
         this.name = name;
         this.setFinished = function () {
-            _this.element.className = "finished";
+            if (_this.element.className === "finished") {
+                return (_this.element.className = "");
+            }
+            else
+                _this.element.className = "finished";
         };
         this.confirmTask = function (event) {
             var _a;
@@ -33,6 +37,7 @@ var Task = /** @class */ (function () {
         this.editTask = function () {
             var confirmButton = new Button("Confirm", _this.confirmTask, "submit")
                 .element;
+            confirmButton.style.display = "inline";
             var form = document.createElement("form");
             var input = document.createElement("input");
             input.value = _this.name;
@@ -42,8 +47,8 @@ var Task = /** @class */ (function () {
             _this.element.appendChild(form);
         };
         this.removeSelf = function (e) {
-            var documentList = _this.toDoList.list.firstChild;
-            documentList.removeChild(_this.element);
+            var _a;
+            (_a = _this.toDoList.list.firstChild) === null || _a === void 0 ? void 0 : _a.removeChild(_this.element);
             _this.toDoList.removeTask(_this);
         };
         this.toDoList = toDoList;
@@ -54,8 +59,10 @@ var Task = /** @class */ (function () {
         this.appendButtons();
     }
     Task.prototype.appendButtons = function () {
-        this.element.appendChild(new Button("x", this.removeSelf).element);
-        this.element.appendChild(new Button("Edit", this.editTask).element);
+        var buttons = document.createElement("div");
+        buttons.appendChild(new Button("x", this.removeSelf).element);
+        buttons.appendChild(new Button("Edit", this.editTask).element);
+        this.element.appendChild(buttons);
     };
     return Task;
 }());
@@ -71,7 +78,7 @@ var ToDoList = /** @class */ (function () {
         };
         this.removeFinished = function () {
             var _a;
-            // this.task.length muda sempre que um elemento é removido
+            // this.tasks.length muda sempre que um elemento é removido
             var length = _this.tasks.length;
             for (var index = 0; index < length; index += 1) {
                 var actualTask = _this.tasks[index - (length - _this.tasks.length)];
@@ -120,11 +127,11 @@ var ToDoList = /** @class */ (function () {
     return ToDoList;
 }());
 var input = document.getElementsByTagName("input")[0];
-var lastButton = document.getElementById("salvar-tarefas");
-var addButton = document.getElementById("add-task");
+var addTaskButton = document.getElementById("add-task");
 var deleteButton = document.getElementById("apaga-tudo");
 var saveButton = document.getElementById("salvar-tarefas");
-var removeFinished = document.getElementById("remover-finalizados");
+var removeDoneTasksButton = document.getElementById("remover-finalizados");
+var listDiv = document.getElementsByClassName("tasks")[0];
 var addItem = function (event, list) {
     event.preventDefault();
     var task = new Task(input.value, list);
@@ -132,8 +139,8 @@ var addItem = function (event, list) {
     list.renderList();
 };
 var list = new ToDoList();
-lastButton.insertAdjacentElement("afterend", list.getLocalStorage());
-addButton.addEventListener("click", function (e) { return addItem(e, list); });
-deleteButton.addEventListener("click", list.reset);
+listDiv.appendChild(list.getLocalStorage());
 saveButton.addEventListener("click", list.saveLocalStorage);
-removeFinished.addEventListener("click", list.removeFinished);
+addTaskButton.addEventListener("click", function (e) { return addItem(e, list); });
+deleteButton.addEventListener("click", list.reset);
+removeDoneTasksButton.addEventListener("click", list.removeFinished);

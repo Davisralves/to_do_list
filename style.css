@@ -1,6 +1,47 @@
 .cinza {
-    background-color: rgb(128, 128, 128);
+	background-color: rgb(128, 128, 128);
 }
-.completed {
-    text-decoration: line-through;
+.finished {
+	text-decoration: line-through;
+}
+
+header {
+	text-align: center;
+}
+
+input::placeholder {
+	text-align: center;
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+	margin-top: 1em;
+}
+
+button {
+	margin-right: 0.5em !important;
+}
+
+li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-radius: 5px;
+	box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+	padding: 30px;
+	width: auto;
+	height: fit-content;
+	transition: all 0.3s ease-out;
+}
+
+li:hover {
+	transform: translateY(-5px);
+	cursor: pointer;
+}
+
+li form {
+	width: 100%;
+	display: flex;
+	align-items: center;
 }
