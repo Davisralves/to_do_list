@@ -18,12 +18,15 @@ var Task = /** @class */ (function () {
     function Task(name, toDoList) {
         var _this = this;
         this.name = name;
-        this.setFinished = function () {
-            if (_this.element.className === "finished") {
-                return (_this.element.className = "");
+        this.setFinished = function (event) {
+            var element = event.target;
+            if (element.tagName === "LI") {
+                if (_this.element.className === "finished") {
+                    _this.element.className = "";
+                }
+                else
+                    _this.element.className = "finished";
             }
-            else
-                _this.element.className = "finished";
         };
         this.confirmTask = function (event) {
             var _a;

@@ -28,10 +28,13 @@ class Task {
 		this.appendButtons();
 	}
 
-	setFinished = () => {
-		if (this.element.className === "finished") {
-			return (this.element.className = "");
-		} else this.element.className = "finished";
+	setFinished = (event: Event) => {
+		const element = event.target as HTMLElement;
+		if (element.tagName === "LI") {
+			if (this.element.className === "finished") {
+				this.element.className = "";
+			} else this.element.className = "finished";
+		}
 	};
 
 	appendButtons() {
