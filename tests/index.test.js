@@ -9,6 +9,7 @@ const {
 	getByLabelText,
 	fireEvent,
 	MouseEvent,
+	getByPlaceholderText,
 } = require("@testing-library/dom");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
@@ -35,7 +36,7 @@ describe("index.html", () => {
 			expect(container.querySelector("h3")).not.toBeNull();
 			expect(
 				getByRole(container, "heading", {
-					name: "Clique em um item para marcá-lo como completo",
+					name: "Clique em um item para marcá-lo como finalizado",
 					level: 3,
 				})
 			).toBeInTheDocument();
@@ -69,7 +70,7 @@ describe("index.html", () => {
 	describe("test input and label elements", () => {
 		it("render Describe Task input and label elements", () => {
 			expect(
-				getByLabelText(container, "Describe Task:", { selector: "input" })
+				getByPlaceholderText(container, "Digite uma tarefa")
 			).toBeInTheDocument();
 		});
 	});
