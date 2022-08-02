@@ -16,7 +16,7 @@ class Button {
 	}
 }
 
-class Task {
+export default class Task {
 	public element: HTMLElement;
 	public toDoList: ToDoList;
 	constructor(public name: string, toDoList: ToDoList) {

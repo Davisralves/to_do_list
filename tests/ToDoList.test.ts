@@ -1,8 +1,8 @@
 import { JSDOM } from "jsdom";
-import { ToDoList } from "../scripts/ToDoList";
+import ToDoList  from "../scripts/ToDoList";
 import Task from "../scripts/Task";
 const dom = new JSDOM();
-global.document = dom.window.document;
+global.document = dom.window._document;
 
 describe("test class ToDoList", () => {
 	it("has tasks and list Propertys", () => {

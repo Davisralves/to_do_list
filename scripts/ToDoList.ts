@@ -1,4 +1,4 @@
-class ToDoList {
+export default class ToDoList {
 	public tasks: Task[];
 	public list: HTMLDivElement;
 	public dragElement: Task | null;

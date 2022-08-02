@@ -4,13 +4,7 @@ const html = fs.readFileSync(
 	path.resolve("to_do_list", "../index.html"),
 	"utf8"
 );
-const {
-	getByRole,
-	getByLabelText,
-	fireEvent,
-	MouseEvent,
-	getByPlaceholderText,
-} = require("@testing-library/dom");
+const { getByRole, getByPlaceholderText } = require("@testing-library/dom");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 require("@testing-library/jest-dom");
