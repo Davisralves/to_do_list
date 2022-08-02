@@ -1,3 +1,5 @@
+import ToDoList from "./ToDoList";
+
 class Button {
 	public element: HTMLElement;
 	constructor(

@@ -1,3 +1,5 @@
+import Task from "./Task";
+
 export default class ToDoList {
 	public tasks: Task[];
 	public list: HTMLDivElement;

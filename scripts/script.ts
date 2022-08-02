@@ -1,3 +1,6 @@
+import ToDoList from "../scripts/ToDoList";
+import Task from "../scripts/Task";
+
 const input = document.getElementsByTagName("input")[0];
 const addTaskButton = document.getElementById("add-task");
 const deleteButton = document.getElementById("apaga-tudo");
