@@ -10,6 +10,7 @@ const addItem = (event: Event, list: ToDoList) => {
 	const task = new Task(input.value, list);
 	list.addTask(task);
 	list.renderList();
+	input.value = "";
 };
 
 const list = new ToDoList();
@@ -17,4 +18,4 @@ listDiv.appendChild(list.getLocalStorage());
 saveButton.addEventListener("click", list.saveLocalStorage);
 addTaskButton.addEventListener("click", (e: Event) => addItem(e, list));
 deleteButton.addEventListener("click", list.reset);
-removeDoneTasksButton.addEventListener("click", list.removeFinished)
+removeDoneTasksButton.addEventListener("click", list.removeFinished);
