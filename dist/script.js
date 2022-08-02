@@ -95,7 +95,6 @@ var ToDoList = /** @class */ (function () {
                 if (task.element === element)
                     searchTask = task;
             });
-            console.log("search Task", searchTask);
             return searchTask;
         };
         this.reset = function () {
@@ -177,6 +176,7 @@ var addItem = function (event, list) {
     var task = new Task(input.value, list);
     list.addTask(task);
     list.renderList();
+    input.value = "";
 };
 var list = new ToDoList();
 listDiv.appendChild(list.getLocalStorage());
