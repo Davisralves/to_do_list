@@ -18,6 +18,16 @@ var Task = /** @class */ (function () {
     function Task(name, toDoList) {
         var _this = this;
         this.name = name;
+        this.onDragStart = function () {
+            _this.toDoList.dragElement = _this;
+        };
+        this.onDrop = function (_a) {
+            var target = _a.target;
+            _this.toDoList.dropElement = _this.toDoList.getTaskByHtml(target);
+        };
+        this.onDragEnd = function () {
+            _this.toDoList.swapDragElements();
+        };
         this.setFinished = function (event) {
             var element = event.target;
             if (element.tagName === "LI") {
@@ -59,6 +69,13 @@ var Task = /** @class */ (function () {
         li.innerText = name;
         this.element = li;
         this.element.onclick = this.setFinished;
+        this.element.draggable = true;
+        this.element.ondragstart = this.onDragStart;
+        this.element.ondragend = this.onDragEnd;
+        this.element.ondrop = this.onDrop;
+        this.element.ondragover = function (e) { return e.preventDefault(); };
+        this.element.ondragenter = function (e) { return e.preventDefault(); };
+        this.element.ondragleave = function (e) { return e.preventDefault(); };
         this.appendButtons();
     }
     Task.prototype.appendButtons = function () {
@@ -72,6 +89,15 @@ var Task = /** @class */ (function () {
 var ToDoList = /** @class */ (function () {
     function ToDoList() {
         var _this = this;
+        this.getTaskByHtml = function (element) {
+            var searchTask;
+            _this.tasks.forEach(function (task) {
+                if (task.element === element)
+                    searchTask = task;
+            });
+            console.log("search Task", searchTask);
+            return searchTask;
+        };
         this.reset = function () {
             _this.tasks.forEach(function (task) {
                 var ol = _this.list.firstElementChild;
@@ -110,7 +136,18 @@ var ToDoList = /** @class */ (function () {
         div.appendChild(ul);
         div.id = "lista-tarefas";
         this.list = div;
+        this.dragElement = null;
+        this.dropElement = null;
     }
+    ToDoList.prototype.swapDragElements = function () {
+        if (this.dragElement && this.dropElement) {
+            var indexOfDragElement = this.tasks.indexOf(this.dragElement);
+            var indexoFDropElement = this.tasks.indexOf(this.dropElement);
+            this.tasks[indexOfDragElement] = this.dropElement;
+            this.tasks[indexoFDropElement] = this.dragElement;
+            this.list = this.renderList();
+        }
+    };
     ToDoList.prototype.addTask = function (newTask) {
         this.tasks.push(newTask);
     };
