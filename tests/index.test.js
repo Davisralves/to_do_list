@@ -4,13 +4,18 @@ const html = fs.readFileSync(
 	path.resolve("to_do_list", "../index.html"),
 	"utf8"
 );
-const { getByText, getByRole, getByLabelText } = require("@testing-library/dom");
+const {
+	getByRole,
+	getByLabelText,
+	fireEvent,
+	MouseEvent,
+	getByPlaceholderText,
+} = require("@testing-library/dom");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 require("@testing-library/jest-dom");
 let dom;
 let container;
-
 describe("index.html", () => {
 	beforeEach(() => {
 		// Constructing a new JSDOM with this option is the key
@@ -31,7 +36,7 @@ describe("index.html", () => {
 			expect(container.querySelector("h3")).not.toBeNull();
 			expect(
 				getByRole(container, "heading", {
-					name: "Clique em um item para marcá-lo como completo",
+					name: "Clique em um item para marcá-lo como finalizado",
 					level: 3,
 				})
 			).toBeInTheDocument();
@@ -39,27 +44,34 @@ describe("index.html", () => {
 	});
 	describe("render button elements", () => {
 		it("render 5 buttons", () => {
-			expect(container.querySelectorAll("button")).toHaveLength(5);
+			expect(container.querySelectorAll("button")).toHaveLength(4);
 		});
 		it('render "Add task" button', () => {
-			expect(getByRole(container, "button", { name: "Criar tarefa" })).toBeInTheDocument();
-		});
-		it('render "Remove selected" button', () => {
-			expect(getByRole(container, "button", { name: "X" })).toBeInTheDocument();
+			expect(
+				getByRole(container, "button", { name: "Criar tarefa" })
+			).toBeInTheDocument();
 		});
 		it('render "Remove ended tasks" button', () => {
-			expect(getByRole(container, "button", { name: "Remover finalizados" })).toBeInTheDocument();
+			expect(
+				getByRole(container, "button", { name: "Remover finalizados" })
+			).toBeInTheDocument();
 		});
 		it('render "Delete all" button', () => {
-			expect(getByRole(container, "button", { name: "Apagar tudo" })).toBeInTheDocument();
+			expect(
+				getByRole(container, "button", { name: "Apagar tudo" })
+			).toBeInTheDocument();
 		});
 		it('render "Save" button', () => {
-			expect(getByRole(container, "button", { name: "Salvar" })).toBeInTheDocument();
+			expect(
+				getByRole(container, "button", { name: "Salvar" })
+			).toBeInTheDocument();
 		});
 	});
 	describe("test input and label elements", () => {
 		it("render Describe Task input and label elements", () => {
-			expect(getByLabelText(container, "Describe Task:", { selector: "input" })).toBeInTheDocument();
+			expect(
+				getByPlaceholderText(container, "Digite uma tarefa")
+			).toBeInTheDocument();
 		});
 	});
 });

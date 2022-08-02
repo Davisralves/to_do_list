@@ -1,13 +1,25 @@
 {
-    "compilerOptions": {
-      "noImplicitAny": false,
-      "noEmitOnError": true,
-      "removeComments": false,
-      "sourceMap": true,
-      "target": "es5",
-      "outDir": "dist"
-    },
-    "include": [
-      "./*"
-    ]
-  }
+	"compilerOptions": {
+		"noImplicitAny": true,
+		"noEmitOnError": true,
+		"removeComments": false,
+		"sourceMap": true,
+		"outDir": "dist",
+		"declaration": false,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"lib": ["es6", "dom"],
+		"moduleResolution": "node",
+		"allowJs": true,
+		"allowSyntheticDefaultImports": false,
+		"target": "es6",
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"skipDefaultLibCheck": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"noUnusedLocals": true,
+		"noErrorTruncation": true
+	},
+	"include": ["./*", "scripts/script.ts", "./jest-setup.ts"]
+}

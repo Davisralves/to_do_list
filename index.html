@@ -6,22 +6,27 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Lista de Tarefas</title>
 		<link href="style.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic" />
 	</head>
 	<body>
 		<header>
 			<h1>Lista de Tarefas</h1>
-			<h3 id="funcionamento">
-				Clique em um item para marcá-lo como completo
-			</h3>
+			<h3 id="funcionamento">Clique em um item para marcá-lo como finalizado</h3>
 		</header>
-        <label for="text-input">Describe Task:</label>
-		<input id="text-input" />
-		<ol id="lista-tarefas"></ol>
-		<button type="button" id="remover-selecionado">X</button>
-		<button type="button" id="criar-tarefa">Criar tarefa</button>
-		<button id="remover-finalizados">Remover finalizados</button>
-		<button id="apaga-tudo">Apagar tudo</button>
-		<button id="salvar-tarefas">Salvar</button>
+		<form>
+			<input id="text-input" placeholder="Digite uma tarefa" />
+			<div class="buttons">
+				<button type="submit" id="add-task">Criar tarefa</button>
+				<button type="button" class="warning" id="remover-finalizados">
+					Remover finalizados
+				</button>
+				<button type="button" class="error" id="apaga-tudo">Apagar tudo</button>
+				<button type="button" class="success" id="salvar-tarefas">
+					Salvar
+				</button>
+			</div>
+			<div class="tasks"></div>
+		</form>
 		<script type="module" src="/dist/script.js"></script>
 	</body>
 </html>
